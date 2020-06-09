@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
     
     //Place your instance variables here
@@ -72,6 +73,7 @@ class ViewController: UIViewController {
         } else {
             //            print("End of Quiz!")
             //            questionNumber = 0
+            
             let alert = UIAlertController(title: "Awesome!", message: "You've finished all questions, do you want to start all over?", preferredStyle: .alert)
             
             let restartAction = UIAlertAction(title: "Restart", style: .default) { (UIAlertAction) in
@@ -80,7 +82,13 @@ class ViewController: UIViewController {
             
             alert.addAction(restartAction)
             
-            present(alert, animated: true, completion: nil)
+//            present(alert, animated: true, completion: nil)
+            
+            
+            // add 1sec delay in presenting alert
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
@@ -89,10 +97,16 @@ class ViewController: UIViewController {
         let correctAnswer = allQuestions.list[questionNumber].answer
         
         if pickedAnswer == correctAnswer {
-            print("Correct")
+//            print("Correct")
+//            Third party library, Progress Bar
+//            https://github.com/relatedcode/ProgressHUD
+//            ProgressHUD.showSucceed("Correct")
+//            ProgressHUD.show(icon: .star)
+            ProgressHUD.showSuccess("Nice!")
             score += 1
         } else {
-            print("Wrong!")
+//            print("Wrong!")
+            ProgressHUD.showError("Nope!")
         }
     }
     
